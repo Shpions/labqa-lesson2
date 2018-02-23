@@ -8,6 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class AdminTest {
 
     public static void main(String[] args) {
@@ -65,23 +67,19 @@ public class AdminTest {
         WebElement button = chrome.findElement(By.name("submitLogin"));
         button.click();
 
-        WebElement dash = chrome.findElement(By.linkText("http://prestashop-automation.qatestlab.com.ua/" +
-                "admin147ajyvk0/index.php?controller=AdminDashboard&token=f57b9e0913a4757c6ba02314cf473896"));
-        dash.click();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        List<WebElement> elements = chrome.findElements(By.className("maintab  has_submenu"));
+        for(WebElement element : elements){
+            element.click();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(chrome.getTitle());
+            chrome.navigate().refresh();
+            element.isSelected();
         }
-        System.out.println(chrome.getTitle());
-        chrome.navigate().refresh();
-        dash.isSelected();
-
-
-
 
     }
-
-
 
 }
